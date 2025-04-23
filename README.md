@@ -77,6 +77,13 @@ La plataforma se basa en una arquitectura [especificar tipo de arquitectura] con
 
 Proximamente
 
+## 🔗 Links
+
+- Documento: https://docs.google.com/document/d/1YNrxwdAtiIA-kt_eerjLNxRLRbCMlCUqYDIa_YAeFVQ/edit?tab=t.0
+- Carpeta: https://drive.google.com/drive/folders/10tu_f5P1gGHifIuA_BKI4uQZvsIg562n?usp=drive_link
+- Trello: https://trello.com/b/i7Iic2C3/routine-x-web-app
+- Figma: https://www.figma.com/design/62qRyGg25R88s34jQb3bP3/Web-app?node-id=0-1&p=f&t=uSVBqMjFNrmv7YQG-0
+
 ## 🔄 Flujo de Trabajo de Desarrollo
 
 1. Crear una nueva rama desde main para cada característica o corrección
