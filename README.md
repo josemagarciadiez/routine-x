@@ -4,7 +4,7 @@ Routine X es una solución completa que conecta entrenadores con sus atletas a t
 
 ## 🔍 Visión General
 
-FitCoach Pro nace para transformar la manera en que entrenadores personales y gimnasios gestionan sus servicios y se comunican con sus atletas. Nuestra plataforma ofrece dos aplicaciones web interconectadas:
+Routine X nace para transformar la manera en que entrenadores personales y gimnasios gestionan sus servicios y se comunican con sus atletas. Nuestra plataforma ofrece dos aplicaciones web interconectadas:
 
 - Portal para Entrenadores: un ecosistema completo para crear, asignar y monitorear rutinas de entrenamiento, gestionar perfiles de atletas y establecer una comunidad fitness motivadora.
 - Aplicación para Atletas: una herramienta intuitiva para acceder a rutinas personalizadas, registrar progresos y participar en una comunidad exclusiva.
@@ -110,4 +110,4 @@ Nombre - [Tu correo electrónico]
 
 Enlace del proyecto: https://github.com/josemagarciadiez/routine-x
 
-FitCoach Pro - Transformando la experiencia fitness © 2025
+Routine X - Transformando la experiencia fitness © 2025
