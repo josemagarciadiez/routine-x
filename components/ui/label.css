@@ -1,0 +1,19 @@
+.label-primitive {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  line-height: 1;
+  font-weight: 500;
+  -webkit-user-select: none;
+  user-select: none;
+
+  &:is(:where(.group)[data-disabled="true"] *) {
+    pointer-events: none;
+    opacity: 50%;
+  }
+
+  &:is(:where(.peer):disabled ~ *) {
+    cursor: not-allowed;
+    opacity: 50%;
+  }
+}
