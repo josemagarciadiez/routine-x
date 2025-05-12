@@ -65,7 +65,7 @@ const button = Button({
 document.body.appendChild(button);
 ```
 
-![Default button](./screenshots/button-default.png)
+![Default button](./screenshots/button-default.webp)
 
 ### Destructive `Button`
 
@@ -80,7 +80,7 @@ const button = Button({
 document.body.appendChild(button);
 ```
 
-![Destructive button](./screenshots/button-destructive.png)
+![Destructive button](./screenshots/button-destructive.webp)
 
 ### Outline `Button`
 
