@@ -2,6 +2,7 @@ export function Input({
   placeholder = "",
   required = false,
   id = "",
+  type = "text",
   name = "",
   disabled = false,
   errors = [],
@@ -14,10 +15,11 @@ export function Input({
   input.required = required;
   input.placeholder = placeholder;
   input.disabled = disabled;
+  input.type = type;
 
   // Errores
   errors && errors.length && input.setAttribute("aria-invalid", "true");
-  
+
   //Styles
   input.className = "input-primitive";
 
