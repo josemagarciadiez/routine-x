@@ -8,6 +8,8 @@
 @import url("./components/ui/label.css");
 /* Dropdown */
 @import url("/components/ui/styles/dropdown-menu.css");
+/* Form */
+@import url("./components/ui/styles/form.css");
 
 /* Global design system */
 :root {
