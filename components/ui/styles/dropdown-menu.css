@@ -28,7 +28,7 @@
 
   /* Posicionamineto segun valor de align */
   &[data-align="bottom"] {
-    position-try-fallbacks: --bottom-end, --top, --top-end;
+    position-try-fallbacks: --menu-bottom-end, --menu-top, --menu-top-end;
     inset: auto;
     top: anchor(bottom);
     left: anchor(left);
@@ -36,7 +36,7 @@
   }
 
   &[data-align="bottom-end"] {
-    position-try-fallbacks: --bottom, --top-end, --top;
+    position-try-fallbacks: --menu-bottom, --menu-top-end, --menu-top;
     inset: auto;
     top: anchor(bottom);
     right: anchor(right);
@@ -44,7 +44,7 @@
   }
 
   &[data-align="top"] {
-    position-try-fallbacks: --top-end, --bottom, --bottom-end;
+    position-try-fallbacks: --menu-top-end, --menu-bottom, --menu-bottom-end;
     inset: auto;
     bottom: anchor(top);
     left: anchor(left);
@@ -52,7 +52,7 @@
   }
 
   &[data-align="top-end"] {
-    position-try-fallbacks: --top, --bottom-end, --bottom;
+    position-try-fallbacks: --menu-top, --menu-bottom-end, --menu-bottom;
     inset: auto;
     bottom: anchor(top);
     right: anchor(right);
@@ -60,7 +60,7 @@
   }
 
   &[data-align="left"] {
-    position-try-fallbacks: --right, --bottom, --top;
+    position-try-fallbacks: --menu-right, --menu-bottom, --menu-top;
     inset: auto;
     top: anchor(top);
     right: anchor(left);
@@ -68,7 +68,7 @@
   }
 
   &[data-align="right"] {
-    position-try-fallbacks: --left, --bottom, --top;
+    position-try-fallbacks: --menu-left, --menu-bottom, --menu-top;
     inset: auto;
     top: anchor(top);
     left: anchor(right);
@@ -163,7 +163,7 @@
 }
 
 .dropdown-menu-sub-content {
-  position-try-fallbacks: --left, --top, --bottom;
+  position-try-fallbacks: --menu-left, --menu-top, --menu-bottom;
   background-color: var(--color-popover);
   color: var(--color-popover-foreground);
   min-width: 10rem;
@@ -211,42 +211,42 @@
   }
 }
 
-@position-try --bottom {
+@position-try --menu-bottom {
   inset: auto;
   top: anchor(bottom);
   left: anchor(left);
   margin-block-start: calc(var(--spacing) * 2);
 }
 
-@position-try --bottom-end {
+@position-try --menu-bottom-end {
   inset: auto;
   top: anchor(bottom);
   right: anchor(right);
   margin-block-start: calc(var(--spacing) * 2);
 }
 
-@position-try --top {
+@position-try --menu-top {
   inset: auto;
   bottom: anchor(top);
   left: anchor(left);
   margin-block-end: calc(var(--spacing) * 2);
 }
 
-@position-try --top-end {
+@position-try --menu-top-end {
   inset: auto;
   bottom: anchor(top);
   right: anchor(right);
   margin-block-end: calc(var(--spacing) * 2);
 }
 
-@position-try --left {
+@position-try --menu-left {
   inset: auto;
   top: anchor(top);
   right: anchor(left);
   margin-inline-end: calc(var(--spacing) * 2);
 }
 
-@position-try --right {
+@position-try --menu-right {
   inset: auto;
   top: anchor(top);
   left: anchor(right);
