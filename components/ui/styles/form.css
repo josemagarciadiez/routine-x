@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.form-message {
+  color: var(--color-destructive);
+  font-size: var(--text-sm);
+  line-height: calc(1.25 / 0.875);
+}
+
+.form-description {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: calc(1.25 / 0.875);
+}
