@@ -96,6 +96,17 @@ export function SheetTrigger(element) {
   return element;
 }
 
+export function SheetClose(element) {
+  element.setAttribute("data-slot", "sheet-close");
+  element.addEventListener("click", () => {
+    const content = element.closest("[data-slot='sheet-content']");
+    if (content) {
+      document.dispatchEvent(new CustomEvent(`sheet-close-${content.id}`));
+    }
+  });
+  return element;
+}
+
 export function SheetContent({
   header,
   footer,
@@ -123,16 +134,6 @@ export function SheetContent({
   return container;
 }
 
-export function SheetClose(element) {
-  element.setAttribute("data-slot", "sheet-close");
-  element.addEventListener("click", () => {
-    const content = element.closest("[data-slot='sheet-content']");
-    if (content) {
-      document.dispatchEvent(new CustomEvent(`sheet-close-${content.id}`));
-    }
-  });
-  return element;
-}
 
 function SheetPrimitiveClose() {
   const container = document.createElement("button");
