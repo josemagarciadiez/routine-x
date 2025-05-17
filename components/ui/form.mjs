@@ -65,6 +65,21 @@ export function Form({ fields, submit, onSubmit }) {
     // 3. Ver funcionalidad de array de campos.
   });
 
+  /**
+   * Metodo para ejecutar el submit del form
+   * desde fuera del componente form.
+   *
+   * @param {Function} submitFn Funcion que se ejecutara luego
+   * de la validacion del form, y luego de la funcion onSubmit pasada
+   * en la creacion del form.
+   * Esta funcion recibe formData como parametro.
+   *
+   */
+  container.handleSubmit = function (submitFn) {
+    container.requestSubmit();
+    submitFn && submitFn();
+  };
+
   // Devuelve el elemento <form> creado y configurado.
   return container;
 }
