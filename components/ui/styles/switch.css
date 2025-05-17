@@ -1,0 +1,78 @@
+.switch-primitive-checkbox {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  &:checked + label {
+    color: var(--color-destructive);
+  }
+
+  & + label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 0;
+  }
+
+  & + label::before {
+    content: "";
+    width: calc(var(--spacing) * 8);
+    height: 1.15rem;
+    border-radius: calc(infinity * 1px);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-xs);
+    flex-shrink: 0;
+    transition: all 150ms ease;
+  }
+
+  & + label::after {
+    position: absolute;
+    content: "";
+    left: 2px;
+    width: calc(var(--spacing) * 4);
+    height: calc(var(--spacing) * 4);
+    background-color: var(--color-background);
+    border-radius: calc(infinity * 1px);
+    pointer-events: none;
+    display: block;
+
+    transition-property: transform, translate, scale, rotate;
+    transition-timing-function: ease;
+    transition-duration: 150ms;
+  }
+
+  &[data-state="checked"] {
+    & + label::after {
+      transform: translateX(calc(100% - 2px));
+    }
+
+    & + label::before {
+      background-color: var(--color-primary);
+    }
+  }
+
+  &[data-state="unchecked"] {
+    & + label::after {
+      transform: translateX(0);
+    }
+
+    & + label::before {
+      background-color: var(--color-input);
+    }
+  }
+
+  &:disabled {
+    & + label::after {
+      cursor: not-allowed;
+    }
+
+    & + label::before {
+      cursor: not-allowed;
+    }
+  }
+
+  &:focus-visible + label::before {
+    outline: 1px solid var(--color-ring);
+  }
+}
