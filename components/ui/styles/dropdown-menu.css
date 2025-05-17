@@ -118,10 +118,6 @@
     height: calc(var(--spacing) * 4);
   }
 
-  & img:not([class*="text-"]) {
-    color: var(--color-accent-foreground);
-  }
-
   &[data-disabled] {
     pointer-events: none;
     opacity: 50%;
