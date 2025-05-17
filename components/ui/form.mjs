@@ -151,6 +151,8 @@ export function FormField({
         message.update(error);
         // Marca con error el label.
         label.setError();
+        // Marca con error el control.
+        control.setError();
       } else {
         // Si el error es null,
         // marca que no hay errores
@@ -159,6 +161,8 @@ export function FormField({
         message.update("");
         // Limpia el error del label.
         label.clearError();
+        // Limpia el error del control.
+        control.clearError();
       }
     }
 
