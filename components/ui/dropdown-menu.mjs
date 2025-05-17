@@ -1,3 +1,5 @@
+// Importa una utilidad para generar contendor <img> con un icono svg de la carpeta assets.
+import { createIcon } from "../../lib/create-icon.mjs";
 // Importa una utilidad para generar IDs únicos (por ejemplo: "dropdown-menu-1234")
 import { createID } from "../../lib/create-id.mjs";
 
@@ -16,6 +18,7 @@ export function DropdownMenu({
 
   // Crea un fragmento para agrupar ambos nodos
   const fragment = document.createDocumentFragment();
+
   fragment.appendChild($trigger);
   fragment.appendChild($content);
 
@@ -24,8 +27,10 @@ export function DropdownMenu({
 
 // Configura el trigger del menú
 function DropdownMenuTrigger(element, id) {
+  // Attributes
   element.setAttribute("data-slot", "dropdown-menu-trigger"); // identificador semántico
   element.setAttribute("popovertarget", id); // conecta el trigger con el popover
+  //   Anchor property
   element.style.setProperty("anchor-name", `--anchor-${id}`); // define el punto de anclaje para el posicionamiento
 
   return element;
@@ -33,10 +38,12 @@ function DropdownMenuTrigger(element, id) {
 
 // Configura el contenido del menú como un popover
 function DropdownMenuPopover(element, id, align) {
+  // Attributes
   element.setAttribute("data-slot", "dropdown-menu-popover");
   element.setAttribute("data-align", align); // permite aplicar estilos por dirección
   element.setAttribute("popover", "auto"); // popover controlado automáticamente
   element.setAttribute("id", id); // ID único para enlazar con el trigger
+  //   Anchor property
   element.style.setProperty("position-anchor", `--anchor-${id}`); // posicionamiento anclado al trigger
 
   return element;
@@ -45,20 +52,24 @@ function DropdownMenuPopover(element, id, align) {
 // Crea el contenedor de contenido del menú (los ítems)
 export function DropdownMenuContent({ label, content }) {
   const container = document.createElement("div");
+  //   Attributes
   container.setAttribute("data-slot", "dropdown-menu-content");
   container.setAttribute("role", "menu"); // semántica de accesibilidad
-  container.className = "dropdown-menu-content"; // clase para aplicar estilos
+  //   Styles
+  container.className = "dropdown-menu-content";
 
-  // Si hay un label, se agrega al principio junto con un separador
+  //   Children
   label && container.appendChild(label);
   label && container.appendChild(DropdownMenuSeparator());
-  content && container.append(...content); // agrega los elementos del menú
+  content && container.append(...content);
 
-  // Evento: cierra el popover al hacer clic en botones o enlaces
+  // Events
   container.querySelectorAll("button, a, [role=button]").forEach((element) => {
     element.addEventListener("click", () => {
       const popover = container.closest("[popover]");
-      if (popover) popover.hidePopover();
+      if (popover) {
+        popover.hidePopover();
+      }
     });
   });
 
@@ -68,8 +79,11 @@ export function DropdownMenuContent({ label, content }) {
 // Separador visual entre secciones del menú
 export function DropdownMenuSeparator() {
   const separator = document.createElement("div");
+  //   Attributes
   separator.setAttribute("data-slot", "dropdown-menu-separator");
   separator.setAttribute("role", "none"); // no impacta accesibilidad
+
+  //   Styles
   separator.className = "dropdown-menu-separator";
 
   return separator;
@@ -84,14 +98,16 @@ export function DropdownMenuItem({
   disabled = false,
 }) {
   const container = document.createElement("li");
+  //   Attributes
   container.setAttribute("data-slot", "dropdown-menu-item");
   container.setAttribute("role", "button"); // actúa como botón
   container.setAttribute("data-variant", `${variant}`); // permite cambiar estilos
   disabled && container.setAttribute("data-disabled", "true");
-  action && container.addEventListener("click", action); // evento click si está definido
+  //   Events
+  action && container.addEventListener("click", action);
+  // Styles
   container.className = "dropdown-menu-item";
-
-  // Agrega icono (si hay) y texto
+  // Children
   icon && container.appendChild(icon);
   label && container.appendChild(document.createTextNode(label));
 
@@ -107,6 +123,7 @@ export function DropdownMenuSub({ label, content }) {
   const $content = DropdownMenuSubPopover(content, subMenuId);
 
   const fragment = document.createDocumentFragment();
+
   fragment.appendChild($trigger);
   fragment.appendChild($content);
 
@@ -116,14 +133,17 @@ export function DropdownMenuSub({ label, content }) {
 // Trigger que abre el submenú al pasar el mouse
 function DropdownMenuSubTrigger(label, id, className = "") {
   const container = document.createElement("li");
+  // Attributes
   container.setAttribute("data-slot", "dropdown-menu-sub-trigger");
   container.setAttribute("popovertarget", id); // conecta con el popover
   container.style.setProperty("anchor-name", `--anchor-${id}`);
+  // Styles
   container.className = `dropdown-menu-item ${className}`;
 
   let isHovering = false;
   let hoverTimeout;
 
+  // Events
   // Cuando el mouse entra, se abre el submenú
   container.addEventListener("mouseenter", () => {
     isHovering = true;
@@ -133,29 +153,32 @@ function DropdownMenuSubTrigger(label, id, className = "") {
     if (popover) {
       popover.showPopover();
 
-      // Si no se ha configurado ya, agrega listeners para mouseover al contenido
+      // Agregar evento al submenu para detectar cuando el mouse entra
       if (!popover.hasAttribute("data-has-listeners")) {
         popover.setAttribute("data-has-listeners", "true");
 
-        // Si el mouse entra al contenido del submenú, se mantiene abierto
         popover.addEventListener("mouseenter", () => {
           isHovering = true;
           clearTimeout(hoverTimeout);
         });
 
-        // Si el mouse sale, se espera un poco antes de cerrar
         popover.addEventListener("mouseleave", (event) => {
+          // Verificar que el mouse no vaya al trigger
           const relatedTarget = event.relatedTarget;
+
           if (
             relatedTarget &&
             (relatedTarget === container || container.contains(relatedTarget))
           ) {
-            return; // se movió hacia el trigger, no cerrar
+            return;
           }
 
           isHovering = false;
+
           hoverTimeout = setTimeout(() => {
-            if (!isHovering) popover.hidePopover();
+            if (!isHovering) {
+              popover.hidePopover();
+            }
           }, 150);
         });
       }
@@ -164,6 +187,7 @@ function DropdownMenuSubTrigger(label, id, className = "") {
 
   // Cuando el mouse sale del trigger
   container.addEventListener("mouseleave", (event) => {
+    // Verificar si estamos entrando al submenu
     const relatedTarget = event.relatedTarget;
     const popover = document.getElementById(id);
 
@@ -172,25 +196,36 @@ function DropdownMenuSubTrigger(label, id, className = "") {
       popover &&
       (relatedTarget === popover || popover.contains(relatedTarget))
     ) {
-      return; // se está moviendo hacia el popover, mantenerlo abierto
+      return; // El mouse se movio desde el trigger al submenu, se mantiene abierto
     }
 
     isHovering = false;
+
     hoverTimeout = setTimeout(() => {
-      if (!isHovering && popover) popover.hidePopover();
+      if (!isHovering && popover) {
+        popover.hidePopover();
+      }
     }, 150);
   });
 
-  container.appendChild(document.createTextNode(label)); // TODO: ícono de flecha
+  // Icon
+  const icon = createIcon("../../assets/icons/chevron-right.svg");
+  icon.className = "sub-trigger-icon";
+
+  // Children
+  container.appendChild(document.createTextNode(label));
+  container.appendChild(icon);
 
   return container;
 }
 
 // Popover del submenú: manual (no auto)
 function DropdownMenuSubPopover(element, id) {
+  // Attributes
   element.setAttribute("data-slot", "dropdown-menu-sub-popover");
   element.setAttribute("popover", "manual");
   element.setAttribute("id", id);
+  // Anchor property
   element.style.setProperty("position-anchor", `--anchor-${id}`);
 
   return element;
@@ -199,10 +234,15 @@ function DropdownMenuSubPopover(element, id) {
 // Contenido del submenú
 export function DropdownMenuSubContent({ label, content }) {
   const container = document.createElement("div");
+  //   Attributes
   container.setAttribute("data-slot", "dropdown-menu-sub-content");
   container.setAttribute("role", "menu");
+  //   Styles
   container.className = "dropdown-menu-sub-content";
 
+  // Events
+
+  //   Children
   label && container.appendChild(label);
   label && container.appendChild(DropdownMenuSeparator());
   content && container.append(...content);
@@ -213,8 +253,11 @@ export function DropdownMenuSubContent({ label, content }) {
 // Etiqueta / encabezado de una sección del menú
 export function DropdownMenuLabel(label) {
   const container = document.createElement("h3");
+  // Attributes
   container.setAttribute("data-slot", "dropdown-menu-label");
+  // Styles
   container.className = "dropdown-menu-label";
+  // Children
   container.textContent = label;
 
   return container;
