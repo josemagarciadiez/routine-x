@@ -16,6 +16,8 @@
 @import url("./components/ui/styles/form.css");
 /* Sheet */
 @import url("./components/ui/styles/sheet.css");
+/* Dialog */
+@import url("./components/ui/styles/dialog.css");
 
 /* Global design system */
 :root {
