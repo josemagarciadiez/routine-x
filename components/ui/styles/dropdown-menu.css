@@ -108,17 +108,17 @@
     color: var(--color-accent-foreground);
   }
 
-  & svg {
+  & img {
     pointer-events: none;
     flex-shrink: 0;
   }
 
-  & svg:not([class*="size-"]) {
+  & img:not([class*="size-"]) {
     width: calc(var(--spacing) * 4);
     height: calc(var(--spacing) * 4);
   }
 
-  & svg:not([class*="text-"]) {
+  & img:not([class*="text-"]) {
     color: var(--color-accent-foreground);
   }
 
@@ -147,10 +147,14 @@
     }
 
     :is(& > *) {
-      &:is(svg) {
+      &:is(img) {
         color: var(--color-destructive) !important;
       }
     }
+  }
+
+  & .sub-trigger-icon {
+    margin-left: auto;
   }
 }
 
