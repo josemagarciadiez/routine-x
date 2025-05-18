@@ -1,3 +1,4 @@
+import { X } from "../../assets/icons/icons.mjs";
 import { createIcon } from "../../lib/create-icon.mjs";
 import { createID } from "../../lib/create-id.mjs";
 import { createPortal } from "../../lib/create-portal.mjs";
@@ -138,7 +139,7 @@ function DialogPrimitiveClose() {
       document.dispatchEvent(new CustomEvent(`dialog-close-${content.id}`));
     }
   });
-  const icon = createIcon("../../assets/icons/x.svg");
+  const icon = createIcon(X);
   container.appendChild(icon);
   return container;
 }

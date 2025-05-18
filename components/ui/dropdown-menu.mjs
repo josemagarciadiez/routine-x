@@ -1,4 +1,5 @@
 // Importa una utilidad para generar contendor <img> con un icono svg de la carpeta assets.
+import { ChevronRight } from "../../assets/icons/icons.mjs";
 import { createIcon } from "../../lib/create-icon.mjs";
 // Importa una utilidad para generar IDs únicos (por ejemplo: "dropdown-menu-1234")
 import { createID } from "../../lib/create-id.mjs";
@@ -209,8 +210,8 @@ function DropdownMenuSubTrigger(label, id, className = "") {
   });
 
   // Icon
-  const icon = createIcon("../../assets/icons/chevron-right.svg");
-  icon.className = "sub-trigger-icon";
+  const icon = createIcon(ChevronRight);
+  icon.classList.add("sub-trigger-icon");
 
   // Children
   container.appendChild(document.createTextNode(label));

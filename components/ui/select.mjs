@@ -1,5 +1,6 @@
 import { createID } from "../../lib/create-id.mjs";
 import { createIcon } from "../../lib/create-icon.mjs";
+import { Check, ChevronDown } from "../../assets/icons/icons.mjs";
 
 export function Select({ trigger, content }) {
   const container = document.createDocumentFragment();
@@ -100,8 +101,8 @@ export function SelectTrigger({ placeholder, size = "default", width }) {
 
   container.className = "select-trigger";
 
-  const icon = createIcon("../../assets/icons/chevron-down.svg");
-  icon.className = "select-trigger-icon";
+  const icon = createIcon(ChevronDown);
+  icon.classList.add("select-trigger-icon");
 
   if (placeholder) {
     container.setAttribute("data-placeholder", "true");
@@ -144,8 +145,8 @@ export function SelectItem({ value, content }) {
 
   container.className = "select-item";
 
-  const checkIndicator = createIcon("../../assets/icons/check.svg");
-  checkIndicator.className = "select-item-check-indicator";
+  const checkIndicator = createIcon(Check);
+  checkIndicator.classList.add("select-item-check-indicator");
   checkIndicator.style.display = "none";
 
   container.appendChild(checkIndicator);
