@@ -113,7 +113,7 @@ export function SelectTrigger({ placeholder, size = "default", width }) {
   return container;
 }
 
-export function SelectContent({ items }) {
+export function SelectContent(...items) {
   const id = createID("select-content");
 
   const container = document.createElement("ul");
@@ -127,9 +127,10 @@ export function SelectContent({ items }) {
 
   container.className = "select-content";
 
-  items.forEach((item) => {
-    container.appendChild(item);
-  });
+  container.append(...items);
+  // items.forEach((item) => {
+  //   container.appendChild(item);
+  // });
 
   return container;
 }
