@@ -45,7 +45,7 @@
     opacity: 50%;
   }
 
-  & img {
+  & svg {
     pointer-events: none;
     flex-shrink: 0;
   }
@@ -94,12 +94,12 @@
   transition: color 150ms ease, box-shadow 150ms ease;
   outline-style: none;
 
-  & img {
+  & svg {
     pointer-events: none;
     flex-shrink: 0;
   }
 
-  & img:not([class*="size-"]) {
+  & svg:not([class*="size-"]) {
     width: calc(var(--spacing) * 4);
     height: calc(var(--spacing) * 4);
   }
