@@ -142,3 +142,35 @@ function DialogPrimitiveClose() {
   container.appendChild(icon);
   return container;
 }
+
+export function DialogHeader(...elements) {
+  const container = document.createElement("div");
+  container.setAttribute("data-slot", "dialog-header");
+  container.className = "dialog-header";
+  container.append(...elements);
+  return container;
+}
+
+export function DialogFooter(...elements) {
+  const container = document.createElement("div");
+  container.setAttribute("data-slot", "dialog-footer");
+  container.className = "dialog-footer";
+  container.append(...elements);
+  return container;
+}
+
+export function DialogTitle(title) {
+  const container = document.createElement("h3");
+  container.setAttribute("data-slot", "dialog-title");
+  container.className = "dialog-title";
+  container.textContent = title;
+  return container;
+}
+
+export function DialogDescription(description) {
+  const container = document.createElement("p");
+  container.setAttribute("data-slot", "dialog-description");
+  container.className = "dialog-description";
+  container.textContent = description;
+  return container;
+}
