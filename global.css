@@ -18,6 +18,8 @@
 @import url("./components/ui/styles/sheet.css");
 /* Dialog */
 @import url("./components/ui/styles/dialog.css");
+/* Sidebar */
+@import url("./components/ui/styles/sidebar.css");
 
 /* Global design system */
 :root {
