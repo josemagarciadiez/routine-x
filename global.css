@@ -2,24 +2,28 @@
 
 /* Button */
 @import url("./components/ui/styles/button.css");
-/* Input */
-@import url("./components/ui/styles/input.css");
-/* Select */
-@import url("./components/ui/styles/select.css");
-/* Switch */
-@import url("./components/ui/styles/switch.css");
-/* Label */
-@import url("./components/ui/styles/label.css");
+/* Collapsible */
+@import url("./components/ui/styles/collapsible.css");
+/* Dialog */
+@import url("./components/ui/styles/dialog.css");
 /* Dropdown Menu */
 @import url("/components/ui/styles/dropdown-menu.css");
 /* Form */
 @import url("./components/ui/styles/form.css");
+/* Input */
+@import url("./components/ui/styles/input.css");
+/* Label */
+@import url("./components/ui/styles/label.css");
+/* Select */
+@import url("./components/ui/styles/select.css");
 /* Sheet */
 @import url("./components/ui/styles/sheet.css");
-/* Dialog */
-@import url("./components/ui/styles/dialog.css");
 /* Sidebar */
 @import url("./components/ui/styles/sidebar.css");
+/* Switch */
+@import url("./components/ui/styles/switch.css");
+/* Tooltip */
+@import url("./components/ui/styles/tooltip.css");
 
 /* Global design system */
 :root {
