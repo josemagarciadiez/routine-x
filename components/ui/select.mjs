@@ -5,7 +5,6 @@ export function Select({ trigger, content }) {
   const container = document.createDocumentFragment();
 
   trigger.setControl(content.id);
-  content.setWidth(trigger.width);
 
   let selectedValue = "";
   let selectedElement = null;
@@ -54,6 +53,8 @@ export function Select({ trigger, content }) {
   });
 
   trigger.addEventListener("click", () => {
+    const rect = trigger.getBoundingClientRect();
+    content.style.width = `${rect.width}px`;
     content.showPopover();
     trigger.setAttribute("aria-expanded", "true");
   });
@@ -99,10 +100,6 @@ export function SelectTrigger({ placeholder, size = "default", width }) {
 
   container.className = "select-trigger";
 
-  container.style.width = width ?? "8rem";
-
-  container.width = width;
-
   const icon = createIcon("../../assets/icons/chevron-down.svg");
   icon.className = "select-trigger-icon";
 
@@ -126,13 +123,9 @@ export function SelectContent({ items }) {
   container.setAttribute("id", id);
   container.setAttribute("popover", "auto");
 
-  container.className = "select-content";
-
-  container.setWidth = (width) => {
-    container.style.width = width;
-  };
-
   container.style.setProperty("position-anchor", `--anchor-${id}`);
+
+  container.className = "select-content";
 
   items.forEach((item) => {
     container.appendChild(item);
