@@ -3,6 +3,7 @@ import { createIcon } from "../../lib/create-icon.mjs";
 import { Button } from "../ui/button.mjs";
 
 import { PanelLeft, PanelRight } from "../../assets/icons/icons.mjs";
+import { createPortal } from "../../lib/create-portal.mjs";
 
 export function Sidebar({
   header,
@@ -15,6 +16,8 @@ export function Sidebar({
   } = {},
 }) {
   let isOpen = false;
+  let isMobile = checkIfMobile();
+  let portal = null;
 
   const id = createID("sidebar");
 
@@ -24,28 +27,96 @@ export function Sidebar({
 
   wrapper.config({ open: isOpen, side, variant, collapsible });
 
-  function toggle() {
-    isOpen = !isOpen;
-    wrapper.toggle(isOpen);
+  function updateSidebar() {
+    // Si es desktop, volvemos a agregar
+    //  el contenido a sidebar (fue robado por el portal)
+    header && sidebar.appendChild(header);
+    content && sidebar.appendChild(content);
+    footer && sidebar.appendChild(footer);
   }
 
-  function handleKeyDown(event) {
-    if (event.key === "b") {
-      toggle();
+  function checkIfMobile() {
+    return window.innerWidth < 768;
+  }
+
+  function handleResize() {
+    const wasMobile = isMobile;
+
+    isMobile = checkIfMobile();
+
+    if (wasMobile !== isMobile && isOpen) {
+      close();
     }
   }
 
-  document.removeEventListener(`sidebar-toggle-${id}`, toggle);
-  document.removeEventListener("keydown", handleKeyDown);
+  function open() {
+    isOpen = true;
 
-  if (collapsible !== "none") {
-    document.addEventListener(`sidebar-toggle-${id}`, toggle);
-    document.addEventListener("keydown", handleKeyDown);
+    if (isMobile) {
+      const portalContent = SidebarPortalContent({
+        header,
+        content,
+        footer,
+        options: { side },
+      });
+
+      portal = SidebarPortal(portalContent, id);
+
+      if (portal) {
+        portal.setState("open");
+      }
+    } else {
+      // Si es desktop, actualizamos el wrapper
+      wrapper.toggle(true);
+    }
   }
+
+  function close() {
+    isOpen = false;
+
+    if (isMobile || portal) {
+      portal.setState("closed");
+      portal.close();
+      portal = null;
+      updateSidebar();
+    } else {
+      // Si es desktop, actualizamos el wrapper
+      wrapper.toggle(false);
+    }
+  }
+
+  const toggle = () => {
+    isOpen ? close() : open();
+  };
+
+  function handleKeyDown(event) {
+    if (event.key === "b") {
+      if (collapsible !== "none" || isMobile) {
+        toggle();
+      }
+    }
+
+    if (event.key === "Escape") {
+      if (isMobile && isOpen) {
+        close();
+      }
+    }
+    // if (collapsible !== "none" && event.key === "b") {
+    //   toggle();
+    // } else if (event.key === "Escape") {
+    //   if (isMobile && isOpen) {
+    //     close();
+    //   }
+    // }
+  }
+
+  document.addEventListener(`sidebar-close-${id}`, toggle);
+  document.addEventListener("keydown", handleKeyDown);
+  window.addEventListener("resize", handleResize);
 
   return {
     Inset: (element) => SidebarProvider(wrapper, SidebarInset(element)),
-    trigger: SidebarTrigger(id, side),
+    trigger: SidebarTrigger(side, toggle),
   };
 }
 
@@ -101,7 +172,7 @@ function SidebarInset(element) {
   return container;
 }
 
-function SidebarTrigger(id, side) {
+function SidebarTrigger(side, toogle) {
   const iconString = side === "left" ? PanelLeft : PanelRight;
 
   const icon = createIcon(iconString);
@@ -111,7 +182,7 @@ function SidebarTrigger(id, side) {
     variant: "ghost",
     size: "icon",
     onClick: () => {
-      document.dispatchEvent(new CustomEvent(`sidebar-toggle-${id}`));
+      toogle();
     },
   });
 
@@ -119,6 +190,54 @@ function SidebarTrigger(id, side) {
   trigger.classList.add("sidebar-trigger-button");
 
   return trigger;
+}
+
+function SidebarPortal(element, id) {
+  const container = document.createElement("div");
+  container.setAttribute("data-slot", "sidebar-portal");
+  const overlay = SidebarOverlay(id);
+  container.appendChild(overlay);
+  container.appendChild(element);
+  container.setState = function (state) {
+    overlay.setAttribute("data-state", state);
+    element.setAttribute("data-state", state);
+  };
+  return createPortal(container);
+}
+
+function SidebarOverlay(id) {
+  const container = document.createElement("div");
+  container.setAttribute("data-slot", "sidebar-overlay");
+  container.addEventListener("click", () => {
+    document.dispatchEvent(new CustomEvent(`sidebar-close-${id}`));
+  });
+  container.className = "sheet-overlay";
+  return container;
+}
+
+function SidebarPortalContent({
+  header,
+  footer,
+  content,
+  options: { side = "left" },
+}) {
+  const container = document.createElement("div");
+  container.setAttribute("data-slot", "sidebar-portal-content");
+  container.setAttribute("data-side", side);
+  container.className = "sidebar-portal-content";
+  // Childrens
+  header && container.appendChild(header);
+
+  if (content) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "sidebar-portal-content-inner-wrapper";
+    wrapper.appendChild(content);
+    container.appendChild(wrapper);
+  }
+
+  footer && container.appendChild(footer);
+
+  return container;
 }
 
 // API
