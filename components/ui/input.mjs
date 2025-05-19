@@ -5,6 +5,7 @@ export function Input({
   type = "text",
   name = "",
   disabled = false,
+  autocomplete = "off",
 } = {}) {
   const input = document.createElement("input");
 
@@ -16,6 +17,7 @@ export function Input({
   input.placeholder = placeholder;
   input.disabled = disabled;
   input.type = type;
+  input.autocomplete = autocomplete;
 
   //Styles
   input.className = "input-primitive";
