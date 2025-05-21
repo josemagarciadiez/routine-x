@@ -28,14 +28,14 @@
     opacity: 50%;
   }
 
-  & img {
+  & svg {
     pointer-events: none;
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;
   }
 
-  & img:not([class*="size-"]) {
+  & svg:not([class*="size-"]) {
     width: calc(var(--spacing) * 4);
     height: calc(var(--spacing) * 4);
   }

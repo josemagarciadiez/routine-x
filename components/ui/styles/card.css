@@ -1,0 +1,55 @@
+.card-container {
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 6);
+  padding-block: calc(var(--spacing) * 6);
+}
+
+.card-header {
+  container-type: inline-size;
+  container-name: card-header;
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-template-rows: auto auto;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 1.5);
+  padding-inline: calc(var(--spacing) * 6);
+
+  &:has(*[data-slot="card-action"]) {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding-inline: calc(var(--spacing) * 6);
+}
+
+.card-content {
+  padding-inline: calc(var(--spacing) * 6);
+}
+
+.card-title {
+  line-height: 1;
+  font-weight: 600;
+}
+
+.card-description {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: calc(1.25 / 0.875);
+}
+
+.card-action {
+  grid-column-start: 2;
+  grid-row: span 2 / span 2;
+  grid-row-start: 1;
+  align-self: flex-start;
+  justify-self: flex-end;
+}

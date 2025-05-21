@@ -1,3 +1,4 @@
+import { createID } from "../../lib/create-id.mjs";
 import { Label } from "./label.mjs";
 import { Input } from "./input.mjs";
 
@@ -66,6 +67,24 @@ export function Form({ fields, submit, onSubmit }) {
     // 3. Ver funcionalidad de array de campos.
   });
 
+  /**
+   * Metodo para ejecutar el submit del form
+   * desde fuera del componente form.
+   *
+   * @param {Function} submitFn Funcion que se ejecutara luego
+   * de la validacion del form, y reemplazara la funcion onSubmit
+   * pasada en la creacion del form.
+   *
+   * Esta funcion recibe formData como parametro.
+   *
+   */
+  container.handleSubmit = function (submitFn) {
+    if (submitFn) {
+      onSubmit = submitFn;
+    }
+    container.requestSubmit();
+  };
+
   // Devuelve el elemento <form> creado y configurado.
   return container;
 }
@@ -83,6 +102,8 @@ export function FormField({
   validator,
   item: { label, control, message, description },
 }) {
+  // Se crea id unico para todo el FormField
+  const id = createID("form-field");
   // Crea un nuevo elemento <div> en el DOM que servira como
   // contenedor de todos los elementos del campo (label, control, message, description, etc)
   const container = document.createElement("div");
@@ -93,14 +114,14 @@ export function FormField({
 
   if (label) {
     // Emparejar label con control
-    label.htmlFor = name;
+    label.htmlFor = id;
     // Agregar label al form
     container.appendChild(label);
   }
 
   if (control) {
     // Configurar el control
-    control.id = name;
+    control.id = id;
     control.name = name;
     // Agregar control al form
     container.appendChild(control);
@@ -134,6 +155,8 @@ export function FormField({
         message.update(error);
         // Marca con error el label.
         label.setError();
+        // Marca con error el control.
+        control.setError();
       } else {
         // Si el error es null,
         // marca que no hay errores
@@ -142,6 +165,8 @@ export function FormField({
         message.update("");
         // Limpia el error del label.
         label.clearError();
+        // Limpia el error del control.
+        control.clearError();
       }
     }
 

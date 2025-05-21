@@ -5,23 +5,44 @@ export function Input({
   type = "text",
   name = "",
   disabled = false,
-  errors = [],
+  autocomplete = "off",
 } = {}) {
   const input = document.createElement("input");
 
   // Atributes
   id && input.setAttribute("id", id);
   name && input.setAttribute("name", name);
+
   input.required = required;
   input.placeholder = placeholder;
   input.disabled = disabled;
   input.type = type;
-
-  // Errores
-  errors && errors.length && input.setAttribute("aria-invalid", "true");
+  input.autocomplete = autocomplete;
 
   //Styles
   input.className = "input-primitive";
+
+  /**
+   * Metodo para obtener el valor actual del campo
+   * desde un controlador externo.
+   *
+   * @returns
+   */
+  input.getValue = () => input.value;
+
+  /**
+   * Metodo para marcar que el campo tiene un error.
+   */
+  input.setError = () => {
+    input.setAttribute("aria-invalid", "true");
+  };
+
+  /**
+   * Metodo para limpiar el campo de errores.
+   */
+  input.clearError = () => {
+    input.setAttribute("aria-invalid", "false");
+  };
 
   return input;
 }

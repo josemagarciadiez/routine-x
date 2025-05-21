@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   gap: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
   line-height: 1;
   font-weight: 500;
   -webkit-user-select: none;
@@ -15,5 +16,9 @@
   &:is(:where(.peer):disabled ~ *) {
     cursor: not-allowed;
     opacity: 50%;
+  }
+
+  &[data-error="true"] {
+    color: var(--color-destructive);
   }
 }

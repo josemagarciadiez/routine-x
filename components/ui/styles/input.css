@@ -23,7 +23,11 @@
   }
 
   &[aria-invalid="true"] {
-    border-color: var(--color-destructive) /* oklch(0.577 0.245 27.325) */;
+    border-color: var(--color-destructive);
+
+    &::placeholder {
+      color: var(--color-destructive);
+    }
   }
 
   &::placeholder {
