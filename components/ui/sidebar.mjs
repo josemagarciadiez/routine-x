@@ -101,13 +101,6 @@ export function Sidebar({
         close();
       }
     }
-    // if (collapsible !== "none" && event.key === "b") {
-    //   toggle();
-    // } else if (event.key === "Escape") {
-    //   if (isMobile && isOpen) {
-    //     close();
-    //   }
-    // }
   }
 
   document.addEventListener(`sidebar-close-${id}`, toggle);
