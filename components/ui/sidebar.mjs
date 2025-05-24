@@ -734,6 +734,7 @@ export function SidebarMenuButton({
   label,
   icon,
   active = false,
+  onClick,
   options: { size = "default", variant = "default" } = {},
 }) {
   const container = document.createElement("button");
@@ -749,7 +750,8 @@ export function SidebarMenuButton({
   const text = document.createElement("span");
   text.textContent = label;
   container.appendChild(text);
-
+  // Agregamos evento si existe el callback onClick
+  onClick && container.addEventListener("click", onClick);
   return container;
 }
 
@@ -762,13 +764,14 @@ export function SidebarMenuButton({
  * @param {boolean} params.showOnHover - Si se muestra solo al hacer hover
  * @returns {HTMLElement} - Botón de acción
  */
-export function SidebarMenuAction({ icon, showOnHover = false }) {
+export function SidebarMenuAction({ icon, showOnHover = false, action }) {
   const container = document.createElement("button");
   container.setAttribute("data-slot", "sidebar-menu-action");
   container.setAttribute("data-sidebar", "menu-action");
   container.setAttribute("data-hover", String(showOnHover));
   container.className = "sidebar-menu-action";
   container.appendChild(icon);
+  action && container.addEventListener("click", action);
   return container;
 }
 
@@ -840,6 +843,7 @@ export function SidebarMenuSubButton({
   label,
   icon,
   isActive = false,
+  onClick,
   options: { size = "md" } = {},
 }) {
   const container = document.createElement("a");
@@ -854,6 +858,8 @@ export function SidebarMenuSubButton({
   const text = document.createElement("span");
   text.textContent = label;
   container.appendChild(text);
+
+  onClick && container.addEventListener("click", onClick);
 
   return container;
 }
