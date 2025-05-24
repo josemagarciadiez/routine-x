@@ -88,6 +88,25 @@ export function Sidebar({
   // Configuracion inicial del dataset del contenedor principal.
   wrapper.config({ open: isOpen, side, variant, collapsible });
 
+  /** Lógica móvil: Crear el portal cuando la pantalla es mobile desde el inicio. */
+  if (isMobile && isOpen) {
+    // Creamos el contenido específico para el portal móvil
+    // Este contenido "roba" los elementos header, content, footer del sidebar original
+    const portalContent = SidebarPortalContent({
+      header,
+      content,
+      footer,
+      options: { side },
+    });
+
+    // Creamos el portal completo (overlay + contenido)
+    portal = SidebarPortal(portalContent, id);
+    // Activamos visualmente el portal
+    if (portal) {
+      portal.setState("open");
+    }
+  }
+
   /** Funciones internas para encapsulacion del comportamiento */
 
   /**
