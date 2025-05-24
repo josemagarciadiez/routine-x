@@ -15,7 +15,7 @@ export function Sidebar({
     collapsible = "offcanvas",
   } = {},
 }) {
-  let isOpen = false;
+  let isOpen = true;
   let isMobile = checkIfMobile();
   let portal = null;
 
